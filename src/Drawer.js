@@ -1,47 +1,61 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import cx from "classnames";
 import PropTypes from "prop-types";
 import "./styles.css";
 
-class Drawer extends Component {
-  handleOutsideClick = e => {
-    if (this.node.contains(e.target)) {
-      debugger;
+export default function Drawer(props) {
+  const { handleClose, title, direction, children } = props;
+  let node = null;
+
+  const drawerSideClass = cx("drawer", {
+    drawerLeft: direction === "left",
+    drawerRight: direction === "right",
+    drawerUp: direction === "up",
+    drawerDown: direction === "down"
+  });
+
+  function handleOutsideClick(e) {
+    if (node.contains(e.target)) {
       return;
     }
-    this.props.handleClose();
-  };
-
-  componentDidMount() {
-    document.addEventListener("click", this.handleOutsideClick, false);
+    handleClose();
   }
 
-  componentWillUnmount() {
-    document.removeEventListener("click", this.handleOutsideClick, false);
-  }
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick, false);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick, false);
+    };
+  });
 
-  render() {
-    const { handleClose, title, direction, children } = this.props;
-
-    const drawerSideClass = cx("drawer", {
-      drawerLeft: direction === "left",
-      drawerRight: direction === "right",
-      drawerUp: direction === "up",
-      drawerDown: direction === "down"
-    });
-
-    return (
-      <div className="drawer-wrapper">
-        <div className={drawerSideClass} ref={node => (this.node = node)}>
-          <div className="drawer-header">
-            <div className="drawer-close-icon" onClick={handleClose} />
-            <div className="drawer-title">{title}</div>
-          </div>
-          <div className="drawer-content">{children}</div>
+  return (
+    <div className="drawer-wrapper">
+      <div className={drawerSideClass} ref={nodeRef => (node = nodeRef)}>
+        <div className="drawer-header">
+          <div className="drawer-close-icon" onClick={handleClose} />
+          <div className="drawer-title">{title}</div>
         </div>
+        <div className="drawer-content">{children}</div>
       </div>
-    );
+    </div>
+  );
+}
+
+export function useDrawer() {
+  const [open, setOpen] = useState(false);
+  function handleOpen() {
+    setOpen(true);
   }
+
+  function handleClose() {
+    setOpen(false);
+  }
+
+  return {
+    open,
+    handleOpen,
+    handleClose
+  };
 }
 
 Drawer.propTypes = {
@@ -55,5 +69,3 @@ Drawer.defaultProps = {
   direction: "right",
   title: "Drawer Header"
 };
-
-export default Drawer;
