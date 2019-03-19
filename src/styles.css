@@ -1,0 +1,157 @@
+html,
+body {
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #29394f;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  text-align: center;
+}
+
+.drawer-wrapper {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.drawer {
+  position: fixed;
+  background: #fff;
+  overflow-y: auto;
+  transition: transform 0.3s;
+  width: 44rem;
+}
+
+.drawerLeft {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  animation: drawerAnimateLeft ease-out 0.3s;
+}
+
+.drawerRight {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  animation: drawerAnimateRight ease-out 0.3s;
+}
+
+.drawerUp {
+  top: 0;
+  left: 0;
+  right: 0;
+  animation: drawerAnimateUp ease-out 0.3s;
+  width: 100%;
+}
+
+.drawerDown {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: drawerAnimateDown ease-out 0.3s;
+  width: 100%;
+}
+
+.drawer-header {
+  border-bottom: 0.1rem solid #f0f4f6;
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.drawer-title {
+  margin-left: 1rem;
+}
+
+.drawer-close-icon {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  vertical-align: center;
+  align-items: center;
+}
+
+.drawer-close-icon::before,
+.drawer-close-icon::after {
+  position: absolute;
+  height: 1.1rem;
+  content: "";
+  width: 0.1rem;
+  margin-left: 1rem;
+  background-color: #00b9f5;
+}
+
+.drawer-close-icon::before {
+  transform: rotate(-45deg);
+}
+
+.drawer-close-icon::after {
+  transform: rotate(45deg);
+}
+
+@keyframes drawerAnimateLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    visibility: show;
+  }
+}
+
+@keyframes drawerAnimateRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    visibility: show;
+  }
+}
+
+@keyframes drawerAnimateUp {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    visibility: show;
+  }
+}
+
+@keyframes drawerAnimateDown {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    visibility: show;
+  }
+}
